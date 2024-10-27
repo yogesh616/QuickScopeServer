@@ -14,7 +14,8 @@ async function summaryData(url) {
             const title = $(element).find('h1').text();
             const description = $(element).find('h2').text().trim();
             const image = $(element).find('img').attr('src');
-            const summaryText = $(element).find('p').text().trim();
+           // const summaryText = $(element).find('p').text().trim();
+             const summaryText = $(element).find('p').eq(0).text().trim();
 
             if (summaryText) {
                 summaryData.push({ title, description, image, summaryText });
