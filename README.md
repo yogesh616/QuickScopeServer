@@ -11,35 +11,7 @@ This is the backend for a news aggregator application that scrapes and serves da
 Project Structure
 The project is organized as follows:
 
-graphql
-Copy code
-scrap/
-│
-├── index.js                # Main server entry point
-├── package.json            # Project dependencies and scripts
-├── vercel.json             # Vercel deployment configuration
-│
-├── Routes/
-│   └── routes.js           # All Express routes for accessing data
-│
-└── Scraper/
-    ├── aajtak/             # Scraper functions for Aaj Tak
-    │   ├── state.js
-    │   └── stateWiseData.js
-    │
-    ├── Channels/           # Additional channel scrapers if needed
-    │
-    ├── HindustanTimes/     # Scraper functions for Hindustan Times
-    │   ├── summary.js
-    │   └── topics.js
-    │
-    ├── cities.js           # Scraper for city-based news
-    ├── health.js           # Health-related news scraper
-    ├── index.html          # Sample HTML for testing (if applicable)
-    ├── latest.js           # Latest news scraper
-    ├── latestVideos.js     # Scraper for recent video content
-    ├── search.js           # Search feature for news articles
-    └── summary.js          # General summary data scraper
+
 Features
 Data Scraping: Utilizes Cheerio to parse and extract information from HTML pages.
 API Endpoints: Provides endpoints to retrieve specific news categories, city details, search results, videos, and summary data.
