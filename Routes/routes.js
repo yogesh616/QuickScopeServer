@@ -7,6 +7,9 @@ const getLatestVideos = require('../Scraper/latestVideos');
 const aajtakStates = require('../Scraper/aajtak/state');
 const stateData = require('../Scraper/aajtak/stateWiseData');
 const summaryData = require('../Scraper/summary.js');
+const scrapTopics =  require('../Scraper/HindustanTimes/topics.js');
+const htimessummaryData = require('../Scraper/HindustanTimes/summary.js');
+
 // Routes for scraping NDTV news articles based on different topics
 
 
@@ -15,6 +18,7 @@ const latest = 'https://www.ndtv.com/latest'
 const india = 'https://www.ndtv.com/india'
 const ai = 'https://www.ndtv.com/india-ai/'
 const health = 'https://www.ndtv.com/health'
+const ytnews = 'https://www.hindustantimes.com/trending'
 //const summaryURL = 'https://www.ndtv.com/entertainment/ira-khan-drops-unseen-pictures-with-junaid-azad-khan-from-her-wedding-6878331'
 
 router.get('/latest/:page', async (req, res) => {
@@ -91,6 +95,30 @@ router.get('/summary', async (req, res) => {
     const URL = req.query.url; // Get URL from query parameters
     if (!URL) return res.status(404).json({ message: 'No URL provided' });
     const data = await summaryData(URL); // Capture returned data from scrapData
+    res.json(data); // Send captured data in response
+ });
+
+ router.get('/htimes/topics', async (req, res) => {
+   // Get URL from query parameters
+   try {
+    const topic = req.query.topic;
+     // Get URL from query parameters
+    if (!topic) return res.status(404).json({ message: 'No Topic provided' });
+    const customURL = 'https://www.hindustantimes.com/' +topic
+    const data = await scrapTopics(customURL); // Capture returned data from scrapData
+    res.json(data); // Send captured data in response
+   }
+   catch(error) {
+   
+    res.status(500).json({ message: 'Internal Server Error' });
+   }
+
+ });
+
+ router.get('/htimes/summary', async (req, res) => {
+    const URL = req.query.url; // Get URL from query parameters
+    if (!URL) return res.status(404).json({ message: 'No URL provided' });
+    const data = await htimessummaryData(URL); // Capture returned data from scrapData
     res.json(data); // Send captured data in response
  });
  
