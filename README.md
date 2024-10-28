@@ -35,8 +35,12 @@ Endpoints can be modified or extended in Routes/routes.js
 
 Technologies Used
 Node.js and Express: For server and routing setup.
+
 Cheerio and Axios: For web scraping and HTTP requests.
+
 Vercel: For deployment.
+
 Contributing
+
 Feel free to fork this repository and submit pull requests if you'd like to contribute to this project.
 
