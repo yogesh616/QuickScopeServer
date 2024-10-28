@@ -22,10 +22,15 @@ API Endpoints
 Here are some of the main routes available in this backend:
 
 /api/cities: Retrieves city-based news.
+
 /api/latest: Fetches the latest news articles.
+
 /api/search: Allows keyword search for articles.
+
 /api/summary: Returns a summary of news articles.
+
 /api/videos: Gets the latest videos.
+
 Endpoints can be modified or extended in Routes/routes.js
 
 Technologies Used
