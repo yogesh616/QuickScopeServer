@@ -32,10 +32,11 @@ router.get('/india/:page', async (req, res) => {
     res.json(data); // Send captured data in response
 });
 
-router.get('/ai/:page', async (req, res) => {
+router.get('/ai/:page', cacheMiddleware, async (req, res) => {
     const page = req.params.page || 1;
-    const data = await scrapData(`${ai}/page-${page}`); // Capture returned data from scrapData
-    res.json(data); // Send captured data in response
+   // const data = await scrapData(`${ai}/page-${page}`);
+   const data = await scrapData(`https://www.ndtv.com/ai/article-load-more/page/${page}/category/india-ai`)
+    res.json(data);
 });
 router.get('/health/:page', async (req, res) => {
     const page = req.params.page || 1;
