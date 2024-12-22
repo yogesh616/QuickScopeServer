@@ -13,6 +13,9 @@ const scrapAi = require('../Scraper/ai.js');
 const NodeCache = require('node-cache');
 const cache = new NodeCache({ stdTTL: 600 }); // Cache duration (in seconds), e.g., 10 minutes
 
+
+const newsFeed = require('../Scraper/bing/feed.js')
+
 const cacheMiddleware = (req, res, next) => {
     const key = req.originalUrl; // Use the request URL as the cache key
     const cachedData = cache.get(key); // Check if data exists in cache
@@ -146,6 +149,15 @@ router.get('/summary', cacheMiddleware , async (req, res) => {
     const data = await htimessummaryData(URL); // Capture returned data from scrapData
     res.json(data); // Send captured data in response
  });
+
+
+ 
+ router.get('/bing/news', cacheMiddleware, async (req, res) => {
+     const { offset } = req.query; // Get search query from request parameters
+     const data = await newsFeed(offset); // Use bingFeed function
+     res.json(data); // Send captured data in response
+ });
+ 
  
 
 
