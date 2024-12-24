@@ -13,7 +13,7 @@ const scrapAi = require('../Scraper/ai.js');
 const NodeCache = require('node-cache');
 const cache = new NodeCache({ stdTTL: 600 }); // Cache duration (in seconds), e.g., 10 minutes
 
-
+const scrapHealth = require('../Scraper/health.js')
 const newsFeed = require('../Scraper/bing/feed.js')
 
 const cacheMiddleware = (req, res, next) => {
@@ -51,7 +51,7 @@ const ytnews = 'https://www.hindustantimes.com/trending'
 
 router.get('/latest/:page', cacheMiddleware , async (req, res) => {
     const page = req.params.page || 1;
-    const data = await scrapData(`${latest}/page-${page}`); // Capture returned data from scrapData
+    const data = await scrapData(`https://www.ndtv.com/article-load-more/page/${page}/category/latest`); // Capture returned data from scrapData
     res.json(data); // Send captured data in response
 });
 router.get('/india/:page', cacheMiddleware,  async (req, res) => {
@@ -67,7 +67,7 @@ router.get('/ai/:page', cacheMiddleware, async (req, res) => {
 });
 router.get('/health/:page', cacheMiddleware, async (req, res) => {
     const page = req.params.page || 1;
-    const data = await scrapData(`${health}/page-${page}`); // Capture returned data from scrapData
+    const data = await scrapHealth(`https://www.ndtv.com/article/article-load-more/page/${page}/category/health`); // Capture returned data from scrapData
     res.json(data); // Send captured data in response
 });
 
