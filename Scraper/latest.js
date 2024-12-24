@@ -1,6 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
+
 async function scrapData(url) {
     const newsItems = []; // Reset newsItems each time scrapData is called
 
@@ -13,6 +14,7 @@ async function scrapData(url) {
     try {
         const res = await axios.get(url, options);
         const $ = cheerio.load(res.data);
+       
         const paginationLinks = [];
 
         // Select all <a> elements inside the pagination container
@@ -28,19 +30,20 @@ async function scrapData(url) {
 
        
         
-        $('.lisingNews .news_Itm').each((index, element) => {
-            const title = $(element).find('.newsHdng').text().trim();
-            const postedBy = $(element).find('.posted-by').text().trim();
-            const link = $(element).find('.news_Itm-img').find('a').attr('href');
-            const image = $(element).find('.news_Itm-img').find('img').attr('src');
-            const content = $(element).find('.newsCont').text().trim();
+        $('ul li').each((index, element) => {
+            const title = $(element).find('.NwsLstPg_ttl-lnk').text().trim();
+            const postedBy = $(element).find('.NwsLstPg_pst_ul  li:last-child').text().trim();
+            const link = $(element).find('.NwsLstPg_ttl').find('a').attr('href');
+            const image = $(element).find('.img-gr').find('img').attr('src');
+            const content = $(element).find('.NwsLstPg_txt').text().trim();
             
             newsItems.push({ title, postedBy, link, image, content, totalPages: lastPage });
+            
         });
         
         return newsItems; // Return the newsItems array
     } catch (error) {
-        console.error('Getting error in scraping:', error);
+        console.error('Getting error in scraping:', error.message);
         return []; // Return empty array if there's an error
     }
 }
