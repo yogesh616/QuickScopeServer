@@ -1,6 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
+
 const url = 'https://www.ndtv.com/search?searchtext='
 const options = {
     headers: {
@@ -14,12 +15,13 @@ async function getSearchData(query='jaipur') {
     try {
         const response = await axios.get(`${url}${query}`, options);
         const $ = cheerio.load(response.data);
-        $('.src_lst-ul .src_lst-li').each((index, element) => {
-            const title = $(element).find('.src_itm-ttl a').text().trim();
-            const link = $(element).find('.src_itm-ttl a').attr('href');
-            const description = $(element).find('.src_itm-txt').text().trim();
-            const image = $(element).find('.img-gratio img').attr('src');
-            const data = { title, description, image, link, };
+       
+        $('.SrchLstPg-a-li').each((index, element) => {
+            const title = $(element).find('.SrchLstPg_ttl').text().trim();
+            const link = $(element).find('.SrchLstPg_ttl').attr('href');
+            const content = $(element).find('.SrchLstPg_txt').text().trim();
+            const image = $(element).find('.SrchLstPg_img-full').attr('data-src');
+            const data = { title, content, image, link, };
             if ( data.title) {
                 results.push(data);
             }
